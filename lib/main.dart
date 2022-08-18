@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './screens/main_screen.dart';
+import './providers/music_library.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SliMusic',
-      theme: themeData,
-      routes: {
-        '/': (ctx) => const MainScreen(),
-      },
+    return ChangeNotifierProvider(
+      create: (context) => MusicLibrary(),
+      child: MaterialApp(
+        title: 'SliMusic',
+        theme: themeData,
+        routes: {
+          '/': (ctx) => const MainScreen(),
+        },
+      ),
     );
   }
 }

@@ -16,7 +16,7 @@ class NavBar extends StatelessWidget {
           ),
           // Button
           InkWell(
-            onTap: () {},
+            onTap: () async {},
             child: Container(
               width: 45,
               height: 45,
