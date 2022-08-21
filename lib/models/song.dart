@@ -3,6 +3,7 @@ import 'dart:convert';
 class Song {
   int id;
   String name;
+  String artist;
   Uri? image;
   Uri location;
 
@@ -10,6 +11,7 @@ class Song {
     required this.id,
     required this.location,
     required this.name,
+    required this.artist,
     this.image,
   });
 
@@ -18,7 +20,8 @@ class Song {
     Map<String, String> details = {
       'id': id.toString(),
       'name': name,
-      'image': (image ?? 'NA') as String,
+      'artist': artist,
+      'image': image == null ? 'NA' : image.toString(),
       'location': location.path,
     };
     return jsonEncode(details);

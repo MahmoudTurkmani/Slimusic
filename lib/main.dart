@@ -28,11 +28,19 @@ class MyApp extends StatelessWidget {
 
 // The theme data of the app
 ThemeData themeData = ThemeData(
-  primarySwatch: Colors.green,
+  primaryColor: Colors.green,
+  colorScheme:
+      const ColorScheme.light(secondary: Color.fromRGBO(121, 173, 220, 1)),
   textTheme: const TextTheme(
-    headline4: TextStyle(
+    displayMedium: TextStyle(
       color: Colors.green,
       fontWeight: FontWeight.w500,
+    ),
+    titleLarge: TextStyle(
+      color: Colors.white,
+    ),
+    labelSmall: TextStyle(
+      color: Colors.white,
     ),
   ),
 );

@@ -12,7 +12,7 @@ class NavBar extends StatelessWidget {
         children: <Widget>[
           Text(
             'SliMusic',
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
           // Button
           InkWell(
@@ -24,13 +24,6 @@ class NavBar extends StatelessWidget {
                 border: Border.all(width: 1, color: Colors.transparent),
                 borderRadius: BorderRadius.circular(10),
                 color: Theme.of(context).primaryColor,
-                boxShadow: const <BoxShadow>[
-                  BoxShadow(
-                    offset: Offset(0, 4),
-                    blurRadius: 10,
-                    color: Colors.grey,
-                  ),
-                ],
               ),
               child: const Icon(
                 Icons.menu,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:id3/id3.dart';
 
 import '../models/song.dart';
 
@@ -49,9 +50,22 @@ class MusicLibrary extends ChangeNotifier {
         if (extension(song.path) == '.mp3') {
           int id = song.hashCode;
           if (!songIdList.contains(id)) {
-            Uri location = song.uri;
             String name = basename(song.path);
-            songList.add(Song(id: id, location: location, name: name));
+            String artist = "Unknown";
+            Uri location = song.uri;
+            // Check if can parse details
+            List<int> mp3Bytes = File.fromUri(song.uri).readAsBytesSync();
+            MP3Instance mp3instance = MP3Instance(mp3Bytes);
+            if (mp3instance.parseTagsSync()) {
+              // Casting happens here as all files are mp3
+              // Not possible for it to be null
+              Map<String, dynamic> tags =
+                  mp3instance.getMetaTags() as Map<String, dynamic>;
+              name = tags['Title'] ?? name;
+              artist = tags['Artist'] ?? artist;
+            }
+            songList.add(
+                Song(id: id, location: location, name: name, artist: artist));
           }
         }
       }).then((value) {
@@ -66,8 +80,10 @@ class MusicLibrary extends ChangeNotifier {
   /// quickly on the next load.
   void _storeSongs() async {
     File file = File(await _getFilePath(_songFiles));
-    // Remove all the old data
-    await file.delete();
+    if (await file.exists()) {
+      // Remove all the old data
+      await file.delete();
+    }
     // Create the file again
     await file.create(recursive: true);
     // Store the data
@@ -78,7 +94,7 @@ class MusicLibrary extends ChangeNotifier {
   /// Grabs all the songs from the local songs file and loads them in.
   ///
   /// If there aren't any songs there, it scans for songs and adds them.
-  void _initSongs() async {
+  Future<void> _initSongs() async {
     bool missingFile = false;
     File file = File(await _getFilePath(_songFiles));
     // Does the file exist?
@@ -92,6 +108,7 @@ class MusicLibrary extends ChangeNotifier {
             id: int.parse(details['id']),
             location: Uri.parse(details['location']),
             name: details['name'] as String,
+            artist: details['artist'] as String,
             image:
                 details['image'] == 'NA' ? null : Uri.parse(details['image']),
           );
@@ -115,24 +132,27 @@ class MusicLibrary extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Checks the storage permission and requests it if it's not granted.
-  Future<void> checkPermission() async {
-    var perm = await Permission.storage.status;
-    if (perm == PermissionStatus.denied) {
-      Permission.storage.request();
+  Future<void> initProvider() async {
+    // if permission wasn't given, then don't load the rest.
+    // This is a fail-safe in case the app runs without permission so that it
+    // doesn't waste resources.
+    if (await Permission.storage.isDenied) {
+      return;
     }
-    // TODO: Display something if the permission is denied
-  }
-
-  void _initProvider() async {
-    await checkPermission();
     // Get the directories
     await _initDirs();
     // Get the songs
-    _initSongs();
+    await _initSongs();
+  }
+
+  void updateCoverImage({required Uri newImage, required int imageID}) {
+    Song foundSong = songList.where((song) => song.id == imageID).first;
+    foundSong.image = newImage;
+    _storeSongs();
+    notifyListeners();
   }
 
   MusicLibrary() {
-    _initProvider();
+    initProvider();
   }
 }
