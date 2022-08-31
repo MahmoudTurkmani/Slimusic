@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './screens/main_screen.dart';
+import './screens/player_screen.dart';
 import './providers/music_library.dart';
+import '../models/song.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +22,14 @@ class MyApp extends StatelessWidget {
         theme: themeData,
         routes: {
           '/': (ctx) => const MainScreen(),
+        },
+        onGenerateRoute: (settings) {
+          if (settings.name == PlayerScreen.routeName) {
+            return MaterialPageRoute(
+              builder: (context) =>
+                  PlayerScreen(song: settings.arguments as Song),
+            );
+          }
         },
       ),
     );

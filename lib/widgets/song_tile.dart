@@ -8,6 +8,7 @@ import './song_details.dart';
 import './song_image.dart';
 import '../providers/music_library.dart';
 import '../models/song.dart';
+import '../screens/player_screen.dart';
 
 class SongTile extends StatelessWidget {
   final Song song;
@@ -87,9 +88,13 @@ class SongTile extends StatelessWidget {
                   artist: song.artist,
                 ),
                 // TODO: Turn the button functional/Make it play the song
-                const Icon(
-                  Icons.play_circle_outline_outlined,
-                  size: 32,
+                IconButton(
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed(PlayerScreen.routeName, arguments: song),
+                  icon: const Icon(
+                    Icons.play_circle_outline_outlined,
+                    size: 32,
+                  ),
                 )
               ],
             )

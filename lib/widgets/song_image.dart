@@ -16,7 +16,7 @@ class SongImage extends StatelessWidget {
     if (image != null) {
       return Image.file(
         File.fromUri(image!),
-        height: 140,
+        height: 130,
         width: 150,
         fit: BoxFit.cover,
       );

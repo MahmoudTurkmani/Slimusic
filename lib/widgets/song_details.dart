@@ -16,7 +16,7 @@ class SongDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 100),
+          constraints: const BoxConstraints(maxWidth: 84),
           child: Text(
             overflow: TextOverflow.ellipsis,
             name,
@@ -24,7 +24,7 @@ class SongDetails extends StatelessWidget {
           ),
         ),
         ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 100),
+          constraints: const BoxConstraints(maxWidth: 84),
           child: Text(
             overflow: TextOverflow.ellipsis,
             artist,
