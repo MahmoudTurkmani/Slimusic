@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import './providers/music_player.dart';
 import './screens/main_screen.dart';
 import './screens/player_screen.dart';
 import './providers/music_library.dart';
@@ -15,8 +16,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MusicLibrary(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<MusicLibrary>(create: (_) => MusicLibrary()),
+        ChangeNotifierProvider<MusicPlayer>(
+          create: (_) => MusicPlayer(),
+        ),
+      ],
       child: MaterialApp(
         title: 'SliMusic',
         theme: themeData,
