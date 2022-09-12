@@ -62,6 +62,8 @@ class SongTile extends StatelessWidget {
     }
 
     return GestureDetector(
+      onTap: () => Navigator.of(context)
+          .pushNamed(PlayerScreen.routeName, arguments: {"song": song}),
       onLongPress: songOptions,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -87,15 +89,10 @@ class SongTile extends StatelessWidget {
                   name: song.name,
                   artist: song.artist,
                 ),
-                // TODO: Turn the button functional/Make it play the song
-                IconButton(
-                  onPressed: () => Navigator.of(context)
-                      .pushNamed(PlayerScreen.routeName, arguments: song),
-                  icon: const Icon(
-                    Icons.play_circle_outline_outlined,
-                    size: 32,
-                  ),
-                )
+                const Icon(
+                  Icons.play_circle_outline_outlined,
+                  size: 32,
+                ),
               ],
             )
           ],

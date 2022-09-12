@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../providers/music_library.dart';
 import '../widgets/navbar.dart';
 import '../widgets/song_section.dart';
+import '../widgets/currently_playing_tile.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -48,6 +49,8 @@ class _MainScreenState extends State<MainScreen> {
         SongSection(
           title: 'Your Songs',
         ),
+        Spacer(),
+        CurrentlyPlayingTile(),
       ],
     );
 

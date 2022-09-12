@@ -12,9 +12,11 @@ import '../models/song.dart';
 class PlayerScreen extends StatefulWidget {
   static const String routeName = '/player';
 
-  const PlayerScreen({Key? key, required this.song}) : super(key: key);
+  const PlayerScreen({Key? key, required this.song, this.alreadyPlaying})
+      : super(key: key);
 
   final Song song;
+  final bool? alreadyPlaying;
 
   @override
   State<PlayerScreen> createState() => _PlayerScreenState();
@@ -23,32 +25,34 @@ class PlayerScreen extends StatefulWidget {
 class _PlayerScreenState extends State<PlayerScreen> {
   @override
   Widget build(BuildContext context) {
+    final player = Provider.of<MusicPlayer>(context, listen: false);
     return Scaffold(
       body: SafeArea(
-        child: Consumer<MusicPlayer>(
-          builder: (ctx, player, _) {
-            return FutureBuilder(
-              future: player.playSong(widget.song),
-              builder: (c, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                }
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+        child: FutureBuilder(
+          future: widget.alreadyPlaying != true
+              ? player.playSong(widget.song)
+              : null,
+          builder: (c, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                const NavBar(),
+                Image.file(File(widget.song.image!.toFilePath())),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    const NavBar(),
-                    Image.file(File(widget.song.image!.toFilePath())),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        SongSlider(audioPlayer: player.audioPlayer),
-                        SongPlayToggleButton(audioPlayer: player.audioPlayer),
-                      ],
+                    SongSlider(audioPlayer: player.audioPlayer),
+                    SongPlayToggleButton(
+                      audioPlayer: player.audioPlayer,
+                      size: 64,
                     ),
                   ],
-                );
-              },
+                ),
+              ],
             );
           },
         ),

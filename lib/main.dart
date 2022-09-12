@@ -31,10 +31,16 @@ class MyApp extends StatelessWidget {
         },
         onGenerateRoute: (settings) {
           if (settings.name == PlayerScreen.routeName) {
+            Map<String, dynamic> data =
+                settings.arguments as Map<String, dynamic>;
             return MaterialPageRoute(
-              builder: (context) =>
-                  PlayerScreen(song: settings.arguments as Song),
+              builder: (context) => PlayerScreen(
+                song: data['song'] as Song,
+                alreadyPlaying: data['alreadyPlaying'],
+              ),
             );
+          } else {
+            return MaterialPageRoute(builder: (context) => const MainScreen());
           }
         },
       ),
