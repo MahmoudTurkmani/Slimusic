@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import './providers/music_player.dart';
 import './screens/main_screen.dart';
 import './screens/player_screen.dart';
+import './screens/drawer_screen.dart';
 import './providers/music_library.dart';
 import '../models/song.dart';
 
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         theme: themeData,
         routes: {
           '/': (ctx) => const MainScreen(),
+          DrawerScreen.routeName: (ctx) => const DrawerScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == PlayerScreen.routeName) {

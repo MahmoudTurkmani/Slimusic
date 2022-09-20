@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../screens/drawer_screen.dart';
-
-class NavBar extends StatelessWidget {
-  const NavBar({Key? key}) : super(key: key);
+class NavBarAlt extends StatelessWidget {
+  const NavBarAlt({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +12,15 @@ class NavBar extends StatelessWidget {
         children: <Widget>[
           Text(
             'SliMusic',
-            style: Theme.of(context).textTheme.displayMedium,
+            style: Theme.of(context)
+                .textTheme
+                .displayMedium
+                ?.copyWith(color: Colors.white),
           ),
           // Button
           InkWell(
             onTap: () async {
-              Navigator.of(context).pushNamed(DrawerScreen.routeName);
+              Navigator.of(context).pop();
             },
             child: Container(
               width: 45,
@@ -27,11 +28,11 @@ class NavBar extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Colors.transparent),
                 borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).primaryColor,
+                color: Colors.white,
               ),
               child: const Icon(
-                Icons.menu,
-                color: Colors.white,
+                Icons.close,
+                color: Colors.green,
                 size: 32,
               ),
             ),
