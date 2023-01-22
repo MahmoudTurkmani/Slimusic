@@ -5,10 +5,12 @@ class SongDetails extends StatelessWidget {
     Key? key,
     required this.name,
     required this.artist,
+    required this.paletteColor,
   }) : super(key: key);
 
   final String name;
   final String artist;
+  final Color paletteColor;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,9 @@ class SongDetails extends StatelessWidget {
           child: Text(
             overflow: TextOverflow.ellipsis,
             name,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  color: paletteColor,
+                ),
           ),
         ),
         ConstrainedBox(
@@ -28,7 +32,9 @@ class SongDetails extends StatelessWidget {
           child: Text(
             overflow: TextOverflow.ellipsis,
             artist,
-            style: Theme.of(context).textTheme.labelSmall,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: paletteColor,
+                ),
           ),
         ),
       ],

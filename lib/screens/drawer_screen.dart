@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/navbar_alt.dart';
+import '../screens/settings_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   static const String routeName = '/drawer';
@@ -18,9 +19,13 @@ class DrawerScreen extends StatelessWidget {
               child: NavBarAlt(),
             ),
             const Spacer(),
-            settingsTile(text: 'Library', icon: Icons.music_note),
-            settingsTile(text: 'Queue', icon: Icons.queue),
-            settingsTile(text: 'Settings', icon: Icons.settings),
+            settingsTile(text: 'Library', icon: Icons.music_note, func: () {}),
+            settingsTile(text: 'Queue', icon: Icons.queue, func: () {}),
+            settingsTile(
+                text: 'Settings',
+                icon: Icons.settings,
+                func: () =>
+                    Navigator.of(context).pushNamed(SettingsScreen.routeName)),
             const Expanded(
               child: Text(
                 'Developed by ABS and Pumpkin Person',
@@ -38,17 +43,28 @@ class DrawerScreen extends StatelessWidget {
   }
 }
 
-Expanded settingsTile({required String text, required IconData icon}) {
+Expanded settingsTile({
+  required String text,
+  required IconData icon,
+  required VoidCallback func,
+}) {
   return Expanded(
     flex: 2,
-    child: Column(
-      children: <Widget>[
-        Icon(
-          icon,
-          size: 64,
-        ),
-        Text(text),
-      ],
+    child: GestureDetector(
+      onTap: func,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Icon(
+            icon,
+            size: 64,
+          ),
+          Text(
+            text,
+            style: const TextStyle(fontSize: 24),
+          ),
+        ],
+      ),
     ),
   );
 }

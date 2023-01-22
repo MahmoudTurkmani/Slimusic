@@ -41,6 +41,8 @@ dependencies:
   assets_audio_player: ^3.0.5
   id3: ^1.0.2
   image_picker: ^0.8.5+3
+  file_picker: ^5.2.0
+  palette_generator: ^0.3.3+2
 
 dev_dependencies:
   flutter_test:

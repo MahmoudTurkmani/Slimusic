@@ -5,8 +5,9 @@ import './providers/music_player.dart';
 import './screens/main_screen.dart';
 import './screens/player_screen.dart';
 import './screens/drawer_screen.dart';
+import './screens/settings_screen.dart';
 import './providers/music_library.dart';
-import '../models/song.dart';
+import './models/song.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (ctx) => const MainScreen(),
           DrawerScreen.routeName: (ctx) => const DrawerScreen(),
+          SettingsScreen.routeName: (ctx) => const SettingsScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == PlayerScreen.routeName) {
