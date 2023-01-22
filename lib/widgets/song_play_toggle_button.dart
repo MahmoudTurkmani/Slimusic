@@ -6,10 +6,12 @@ class SongPlayToggleButton extends StatelessWidget {
     Key? key,
     required this.audioPlayer,
     required this.size,
+    required this.secondary,
   }) : super(key: key);
 
   final AssetsAudioPlayer audioPlayer;
   final double size;
+  final Color secondary;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class SongPlayToggleButton extends StatelessWidget {
                 ? Icons.pause_circle_outline
                 : Icons.play_circle_outline,
             size: size,
+            color: secondary,
           ),
           onPressed: () => audioPlayer.playOrPause(),
         );

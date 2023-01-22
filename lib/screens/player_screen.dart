@@ -27,6 +27,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
   Widget build(BuildContext context) {
     final player = Provider.of<MusicPlayer>(context, listen: false);
     return Scaffold(
+      backgroundColor: widget.song.primary,
       body: SafeArea(
         child: FutureBuilder(
           future: widget.alreadyPlaying != true
@@ -34,21 +35,29 @@ class _PlayerScreenState extends State<PlayerScreen> {
               : null,
           builder: (c, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                const NavBar(),
+                NavBar(
+                  displayColor: widget.song.secondary,
+                  secondaryColor: widget.song.primary,
+                ),
                 Image.file(File(widget.song.image!.toFilePath())),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    SongSlider(audioPlayer: player.audioPlayer),
+                    SongSlider(
+                      audioPlayer: player.audioPlayer,
+                      primary: widget.song.primary,
+                      secondary: widget.song.secondary,
+                    ),
                     SongPlayToggleButton(
                       audioPlayer: player.audioPlayer,
                       size: 64,
+                      secondary: widget.song.secondary,
                     ),
                   ],
                 ),

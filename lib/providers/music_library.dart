@@ -10,6 +10,7 @@ import 'package:id3/id3.dart';
 import '../models/song.dart';
 
 class MusicLibrary extends ChangeNotifier {
+  // TODO: Add a way for the user to scan for new songs
   // TODO: Include a way for the user to add directories
   List<String> directories = ['/storage/emulated/0/music/'];
   List<Song> songList = [];

@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 class Song {
   int id;
@@ -6,6 +9,8 @@ class Song {
   String artist;
   Uri? image;
   Uri location;
+  late Color primary;
+  late Color secondary;
 
   Song({
     required this.id,
@@ -13,7 +18,14 @@ class Song {
     required this.name,
     required this.artist,
     this.image,
-  });
+  }) {
+    // Get the primary and secondary colors from the image
+    PaletteGenerator.fromImageProvider(FileImage(File.fromUri(image!)))
+        .then((value) {
+      primary = value.colors.first;
+      secondary = value.colors.last;
+    });
+  }
 
   @override
   String toString() {

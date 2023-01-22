@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 
 class SongSlider extends StatelessWidget {
-  const SongSlider({Key? key, required this.audioPlayer}) : super(key: key);
+  const SongSlider({
+    Key? key,
+    required this.audioPlayer,
+    required this.primary,
+    required this.secondary,
+  }) : super(key: key);
 
   final AssetsAudioPlayer audioPlayer;
+  final Color primary;
+  final Color secondary;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,9 @@ class SongSlider extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-                '${(position.inSeconds / 60).floor()}:${position.inSeconds % 60}'),
+              '${(position.inSeconds / 60).floor()}:${position.inSeconds % 60}',
+              style: TextStyle(color: secondary),
+            ),
             Slider(
               min: 0,
               max: songLength.inSeconds.toDouble(),
@@ -25,7 +34,9 @@ class SongSlider extends StatelessWidget {
               },
             ),
             Text(
-                '${(songLength.inSeconds / 60).floor()}:${songLength.inSeconds % 60}'),
+              '${(songLength.inSeconds / 60).floor()}:${songLength.inSeconds % 60}',
+              style: TextStyle(color: secondary),
+            ),
           ],
         );
       },

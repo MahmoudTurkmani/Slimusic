@@ -19,18 +19,21 @@ class CurrentlyPlayingTile extends StatelessWidget {
         if (!player.isPlaying || songMetas == null) {
           return Container();
         }
+        // The primary and secondary color for the song
+        Color primaryColor = player.getCurrentSong!.primary;
+        Color secondaryColor = player.getCurrentSong!.secondary;
+
         return GestureDetector(
-          onTap: () => Navigator.of(context).pushNamed(PlayerScreen.routeName,
-              arguments: {
-                "song": player.getCurrentSong,
-                "alreadyPlaying": true
-              }),
+          onTap: () => Navigator.of(context).pushNamed(
+            PlayerScreen.routeName,
+            arguments: {"song": player.getCurrentSong, "alreadyPlaying": true},
+          ),
           child: Container(
             height: 100,
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Theme.of(context).primaryColor,
+              color: primaryColor,
             ),
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             padding: const EdgeInsets.all(10),
@@ -66,9 +69,14 @@ class CurrentlyPlayingTile extends StatelessWidget {
                                     child: Text(
                                       songMetas.title!,
                                       overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(color: secondaryColor),
                                     ),
                                   ),
-                                  Expanded(child: Text(songMetas.artist!)),
+                                  Expanded(
+                                      child: Text(
+                                    songMetas.artist!,
+                                    style: TextStyle(color: secondaryColor),
+                                  )),
                                 ],
                               ),
                             ),
@@ -77,6 +85,7 @@ class CurrentlyPlayingTile extends StatelessWidget {
                               child: IconButton(
                                 onPressed: () => player.audioPlayer.previous(),
                                 icon: const Icon(Icons.skip_previous_rounded),
+                                color: secondaryColor,
                               ),
                             ),
                             Expanded(
@@ -91,6 +100,7 @@ class CurrentlyPlayingTile extends StatelessWidget {
                                         : Icons.play_arrow_rounded,
                                   ),
                                 ),
+                                color: secondaryColor,
                               ),
                             ),
                             Expanded(
@@ -98,13 +108,18 @@ class CurrentlyPlayingTile extends StatelessWidget {
                               child: IconButton(
                                 onPressed: () => player.audioPlayer.next(),
                                 icon: const Icon(Icons.skip_next_rounded),
+                                color: secondaryColor,
                               ),
                             ),
                           ],
                         ),
                       ),
                       Expanded(
-                          child: SongSlider(audioPlayer: player.audioPlayer)),
+                          child: SongSlider(
+                        audioPlayer: player.audioPlayer,
+                        primary: primaryColor,
+                        secondary: secondaryColor,
+                      )),
                     ],
                   ),
                 ),

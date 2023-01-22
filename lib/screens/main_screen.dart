@@ -42,15 +42,15 @@ class _MainScreenState extends State<MainScreen> {
     );
 
     final permissionGrantedMenu = Column(
-      children: const <Widget>[
+      children: <Widget>[
         // The top bar
         NavBar(),
         // The songs section
-        SongSection(
+        const SongSection(
           title: 'Your Songs',
         ),
-        Spacer(),
-        CurrentlyPlayingTile(),
+        const Spacer(),
+        const CurrentlyPlayingTile(),
       ],
     );
 

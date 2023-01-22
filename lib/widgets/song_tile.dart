@@ -62,9 +62,12 @@ class SongTile extends StatelessWidget {
       );
     }
 
+    // Note: The reason the FutureBuilder is here is because
+    // The future may have not yet yielded a result by the time this widget
+    // is called. Therefore this is a fallback.
+
     // The actual widget begins here
     return FutureBuilder(
-        // TODO account for cases where the image is not there
         future: PaletteGenerator.fromImageProvider(
             FileImage(File.fromUri(song.image!))),
         builder: (context, snapshot) {

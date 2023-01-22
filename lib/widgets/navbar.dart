@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import '../screens/drawer_screen.dart';
 
 class NavBar extends StatelessWidget {
-  const NavBar({Key? key}) : super(key: key);
+  NavBar({Key? key, this.displayColor, this.secondaryColor}) : super(key: key);
+
+  Color? displayColor;
+  Color? secondaryColor;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +17,9 @@ class NavBar extends StatelessWidget {
         children: <Widget>[
           Text(
             'SliMusic',
-            style: Theme.of(context).textTheme.displayMedium,
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  color: displayColor,
+                ),
           ),
           // Button
           InkWell(
@@ -27,11 +32,11 @@ class NavBar extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Colors.transparent),
                 borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).primaryColor,
+                color: displayColor ?? Theme.of(context).primaryColor,
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.menu,
-                color: Colors.white,
+                color: secondaryColor ?? Colors.white,
                 size: 32,
               ),
             ),

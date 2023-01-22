@@ -7,6 +7,9 @@ class MusicPlayer extends ChangeNotifier {
   final AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.newPlayer();
   Song? _currentSong;
 
+  /// Plays a given `Song`
+  ///
+  /// Takes 3 arguments: The song you wish to play, The primary color, The secondary color
   Future<void> playSong(Song song) async {
     final String songPath = song.location.toFilePath();
     final MetasImage songImage = MetasImage.file(song.image!.toFilePath());
