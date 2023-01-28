@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -45,11 +43,12 @@ class CurrentlyPlayingTile extends StatelessWidget {
                   flex: 2,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.file(
-                      File(songMetas.image!.path),
-                      fit: BoxFit.cover,
-                      height: 90,
-                    ),
+                    child: player.getCurrentSong!.getImage(),
+                    // Image.file(
+                    //   File(songMetas.image!.path),
+                    //   fit: BoxFit.cover,
+                    //   height: 90,
+                    // ),
                   ),
                 ),
                 Expanded(flex: 1, child: Container()),

@@ -68,8 +68,9 @@ class SongTile extends StatelessWidget {
 
     // The actual widget begins here
     return FutureBuilder(
-        future: PaletteGenerator.fromImageProvider(
-            FileImage(File.fromUri(song.image!))),
+        future: PaletteGenerator.fromImageProvider(song.getImageProvider()),
+        // future: PaletteGenerator.fromImageProvider(
+        //     AssetImage('assets/images/cover.png')),
         builder: (context, snapshot) {
           // While it is still loading, show the loading tile
           if (snapshot.connectionState != ConnectionState.done) {

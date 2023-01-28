@@ -20,8 +20,7 @@ class Song {
     this.image,
   }) {
     // Get the primary and secondary colors from the image
-    PaletteGenerator.fromImageProvider(FileImage(File.fromUri(image!)))
-        .then((value) {
+    PaletteGenerator.fromImageProvider(getImageProvider()).then((value) {
       primary = value.colors.first;
       secondary = value.colors.last;
     });
@@ -37,5 +36,27 @@ class Song {
       'location': location.path,
     };
     return jsonEncode(details);
+  }
+
+  Image getImage() {
+    return image == null
+        ? Image.asset('assets/images/cover.png')
+        : Image.file(File.fromUri(image!));
+  }
+
+  ImageProvider getImageProvider() {
+    ImageProvider assetImage = const AssetImage('assets/images/cover.png');
+    if (image == null) {
+      return assetImage;
+    }
+
+    ImageProvider fileImage = FileImage(File.fromUri(image!));
+    return fileImage;
+
+    // For some reason, the code below doesn't work. Hence the code above.
+
+    // return image == null
+    //     ? AssetImage('assets/images/cover.png')
+    //     : FileImage(File.fromUri(image!));
   }
 }

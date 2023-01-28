@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import '../screens/drawer_screen.dart';
 
 class NavBar extends StatelessWidget {
-  NavBar({Key? key, this.displayColor, this.secondaryColor}) : super(key: key);
+  const NavBar({Key? key, this.displayColor, this.secondaryColor})
+      : super(key: key);
 
-  Color? displayColor;
-  Color? secondaryColor;
+  final Color? displayColor;
+  final Color? secondaryColor;
 
   @override
   Widget build(BuildContext context) {

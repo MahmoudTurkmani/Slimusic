@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +43,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   displayColor: widget.song.secondary,
                   secondaryColor: widget.song.primary,
                 ),
-                Image.file(File(widget.song.image!.toFilePath())),
+                widget.song.getImage(),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[

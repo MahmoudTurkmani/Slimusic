@@ -43,13 +43,18 @@ class MusicLibrary extends ChangeNotifier {
   /// the directories list.
   ///
   /// These directories are initialized using the _initDirs function.
-  void _scanSongs() {
-    for (var directory in directories) {
+  Future<void> _scanSongs() async {
+    for (String directory in directories) {
+      if (directory.isEmpty) {
+        continue;
+      }
+
       Directory dir = Directory(directory);
       List<int> songIdList = songList.map((s) => s.id).toList();
-      dir.list().forEach((song) {
+
+      await dir.list().forEach((song) {
         if (extension(song.path) == '.mp3') {
-          int id = song.hashCode;
+          int id = song.path.hashCode;
           if (!songIdList.contains(id)) {
             String name = basename(song.path);
             String artist = "Unknown";
@@ -64,22 +69,23 @@ class MusicLibrary extends ChangeNotifier {
                   mp3instance.getMetaTags() as Map<String, dynamic>;
               name = tags['Title'] ?? name;
               artist = tags['Artist'] ?? artist;
+              songList.add(
+                  Song(id: id, location: location, name: name, artist: artist));
             }
-            songList.add(
-                Song(id: id, location: location, name: name, artist: artist));
           }
         }
       }).then((value) {
         notifyListeners();
       });
     }
-    _storeSongs();
+
+    await _storeSongs();
   }
 
   /// Converts all the songs that are loaded in the app into a string
   /// and stores their details locally so that they can be accessed
   /// quickly on the next load.
-  void _storeSongs() async {
+  Future<void> _storeSongs() async {
     File file = File(await _getFilePath(_songFiles));
     if (await file.exists()) {
       // Remove all the old data
@@ -89,15 +95,24 @@ class MusicLibrary extends ChangeNotifier {
     await file.create(recursive: true);
     // Store the data
     String content = songList.join('-||-');
-    file.writeAsString(content);
+    await file.writeAsString(content);
   }
 
   /// Grabs all the songs from the local songs file and loads them in.
   ///
   /// If there aren't any songs there, it scans for songs and adds them.
-  Future<void> _initSongs() async {
+  Future<void> _initSongs({bool hardRefresh = false}) async {
     bool missingFile = false;
     File file = File(await _getFilePath(_songFiles));
+
+    // Force refresh?
+    if (hardRefresh) {
+      // songList.clear();
+      _scanSongs();
+      notifyListeners();
+      return;
+    }
+
     // Does the file exist?
     if (await file.exists()) {
       String content = await file.readAsString();
@@ -133,17 +148,18 @@ class MusicLibrary extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> initProvider() async {
+  Future<void> initProvider({hardRefresh = false}) async {
     // if permission wasn't given, then don't load the rest.
     // This is a fail-safe in case the app runs without permission so that it
     // doesn't waste resources.
     if (await Permission.storage.isDenied) {
       return;
     }
+
     // Get the directories
     await _initDirs();
     // Get the songs
-    await _initSongs();
+    await _initSongs(hardRefresh: hardRefresh);
   }
 
   void updateCoverImage({required Uri newImage, required int imageID}) {
