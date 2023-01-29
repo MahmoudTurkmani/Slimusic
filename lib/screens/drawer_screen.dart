@@ -19,7 +19,10 @@ class DrawerScreen extends StatelessWidget {
               child: NavBarAlt(),
             ),
             const Spacer(),
-            settingsTile(text: 'Library', icon: Icons.music_note, func: () {}),
+            settingsTile(
+                text: 'Library',
+                icon: Icons.music_note,
+                func: () => Navigator.of(context).pushReplacementNamed('/')),
             settingsTile(text: 'Queue', icon: Icons.queue, func: () {}),
             settingsTile(
                 text: 'Settings',

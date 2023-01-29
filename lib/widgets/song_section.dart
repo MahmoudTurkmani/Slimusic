@@ -19,7 +19,7 @@ class SongSection extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(title, style: Theme.of(context).textTheme.headline5),
+              Text(title, style: Theme.of(context).textTheme.headlineSmall),
               const Icon(Icons.arrow_forward_ios),
             ],
           ),

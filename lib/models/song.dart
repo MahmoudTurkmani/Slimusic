@@ -12,6 +12,8 @@ class Song {
   late Color primary;
   late Color secondary;
 
+  final double _borderRadius = 10.0;
+
   Song({
     required this.id,
     required this.location,
@@ -38,10 +40,13 @@ class Song {
     return jsonEncode(details);
   }
 
-  Image getImage() {
-    return image == null
-        ? Image.asset('assets/images/cover.png')
-        : Image.file(File.fromUri(image!));
+  ClipRRect getImage() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(_borderRadius),
+      child: image == null
+          ? Image.asset('assets/images/cover.png')
+          : Image.file(File.fromUri(image!)),
+    );
   }
 
   ImageProvider getImageProvider() {

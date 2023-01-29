@@ -44,11 +44,6 @@ class CurrentlyPlayingTile extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: player.getCurrentSong!.getImage(),
-                    // Image.file(
-                    //   File(songMetas.image!.path),
-                    //   fit: BoxFit.cover,
-                    //   height: 90,
-                    // ),
                   ),
                 ),
                 Expanded(flex: 1, child: Container()),
@@ -68,14 +63,22 @@ class CurrentlyPlayingTile extends StatelessWidget {
                                     child: Text(
                                       songMetas.title!,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(color: secondaryColor),
+                                      style: TextStyle(
+                                        color: secondaryColor,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                   Expanded(
-                                      child: Text(
-                                    songMetas.artist!,
-                                    style: TextStyle(color: secondaryColor),
-                                  )),
+                                    child: Text(
+                                      songMetas.artist!,
+                                      style: TextStyle(
+                                        color: secondaryColor,
+                                        fontFamily: 'Inter',
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),

@@ -10,9 +10,7 @@ import 'package:id3/id3.dart';
 import '../models/song.dart';
 
 class MusicLibrary extends ChangeNotifier {
-  // TODO: Add a way for the user to scan for new songs
-  // TODO: Include a way for the user to add directories
-  List<String> directories = ['/storage/emulated/0/music/'];
+  final List<String> _directories = ['/storage/emulated/0/music/'];
   List<Song> songList = [];
 
   // Local directories for the app itself
@@ -33,10 +31,40 @@ class MusicLibrary extends ChangeNotifier {
     File file = File(await _getFilePath(_songDirectories));
     if (await file.exists()) {
       String content = await file.readAsString();
-      content.split(',').forEach((element) => directories.add(element));
+      content.split('-||-').forEach((element) => _directories.add(element));
     } else {
       file.create();
     }
+  }
+
+  /// Adds `directory` to the list of directories that the app searches for songs in.
+  ///
+  /// Once it has finished scanning, it calls `_scanSongs()` to search for the songs.
+  ///
+  /// returns `true` if directory is added successfully
+  ///
+  /// returns `false` if the directory is already in `_directories`
+  Future<bool> addDir(String directory) async {
+    if (_directories.contains(directory)) {
+      return false;
+    }
+    _directories.add(directory);
+
+    await _storeDirs();
+    await _scanSongs();
+
+    return true;
+  }
+
+  Future<void> _storeDirs() async {
+    // Description of this code can be found in _storeSongs()
+    File file = File(await _getFilePath(_songDirectories));
+    if (await file.exists()) {
+      await file.delete();
+    }
+    await file.create(recursive: true);
+    String content = _directories.join('-||-');
+    await file.writeAsString(content);
   }
 
   /// Searches all the song files from the directories mentioned in
@@ -44,7 +72,7 @@ class MusicLibrary extends ChangeNotifier {
   ///
   /// These directories are initialized using the _initDirs function.
   Future<void> _scanSongs() async {
-    for (String directory in directories) {
+    for (String directory in _directories) {
       if (directory.isEmpty) {
         continue;
       }

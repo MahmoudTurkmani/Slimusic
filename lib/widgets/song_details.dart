@@ -23,8 +23,9 @@ class SongDetails extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             name,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: paletteColor,
-                ),
+                color: paletteColor,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.bold),
           ),
         ),
         ConstrainedBox(
@@ -34,6 +35,7 @@ class SongDetails extends StatelessWidget {
             artist,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
                   color: paletteColor,
+                  fontFamily: 'Inter',
                 ),
           ),
         ),

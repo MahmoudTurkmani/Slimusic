@@ -41,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
 
-    final permissionGrantedMenu = ListView(
+    final permissionGrantedMenu = Column(
       children: const <Widget>[
         // The top bar
         NavBar(),
@@ -56,27 +56,21 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            return await Provider.of<MusicLibrary>(context, listen: false)
-                .initProvider(hardRefresh: true);
-          },
-          child: FutureBuilder(
-            future: Permission.storage.isGranted,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.data as bool) {
-                  return permissionGrantedMenu;
-                } else {
-                  return permissionDeniedMenu;
-                }
+        child: FutureBuilder(
+          future: Permission.storage.isGranted,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.data as bool) {
+                return permissionGrantedMenu;
               } else {
-                return const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                );
+                return permissionDeniedMenu;
               }
-            },
-          ),
+            } else {
+              return const Center(
+                child: CircularProgressIndicator.adaptive(),
+              );
+            }
+          },
         ),
       ),
     );
