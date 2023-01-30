@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/music_player.dart';
-import '../widgets/navbar.dart';
+import '../widgets/navbars/navbar.dart';
 import '../widgets/song_slider.dart';
 import '../widgets/song_play_toggle_button.dart';
 import '../models/song.dart';

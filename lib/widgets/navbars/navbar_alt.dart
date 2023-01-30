@@ -12,10 +12,11 @@ class NavBarAlt extends StatelessWidget {
         children: <Widget>[
           Text(
             'SliMusic',
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium
-                ?.copyWith(color: Colors.white),
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  color: Colors.white,
+                  fontFamily: 'ABeeZee',
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           // Button
           InkWell(
@@ -27,7 +28,7 @@ class NavBarAlt extends StatelessWidget {
               height: 45,
               decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Colors.transparent),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(15),
                 color: Colors.white,
               ),
               child: const Icon(

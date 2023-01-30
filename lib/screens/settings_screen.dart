@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/navbar.dart';
+import '../widgets/navbars/navbar.dart';
 import '../widgets/settings_page/section_title.dart';
 import '../widgets/settings_page/import_music_tile.dart';
 

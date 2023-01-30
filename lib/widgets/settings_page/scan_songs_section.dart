@@ -32,7 +32,14 @@ class ScanSongsSection extends StatelessWidget {
               overlayColor:
                   MaterialStateProperty.all(Colors.green.withOpacity(0.2)),
             ),
-            child: const Text('Scan'),
+            child: const Text(
+              'Scan',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         )
       ],

@@ -3,7 +3,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/music_library.dart';
-import '../widgets/navbar.dart';
+import '../widgets/navbars/navbar.dart';
 import '../widgets/song_section.dart';
 import '../widgets/currently_playing_tile.dart';
 

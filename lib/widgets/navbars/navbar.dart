@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../screens/drawer_screen.dart';
+import '../../screens/drawer_screen.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({Key? key, this.displayColor, this.secondaryColor})
@@ -20,6 +20,8 @@ class NavBar extends StatelessWidget {
             'SliMusic',
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
                   color: displayColor,
+                  fontFamily: 'ABeeZee',
+                  fontWeight: FontWeight.bold,
                 ),
           ),
           // Button
@@ -32,7 +34,7 @@ class NavBar extends StatelessWidget {
               height: 45,
               decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Colors.transparent),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(15),
                 color: displayColor ?? Theme.of(context).primaryColor,
               ),
               child: Icon(

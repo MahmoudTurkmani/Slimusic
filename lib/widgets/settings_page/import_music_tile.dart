@@ -68,7 +68,14 @@ Widget browseButton(BuildContext ctx) {
         overlayColor: MaterialStateProperty.all(Colors.green.withOpacity(0.2)),
       ),
       icon: const Icon(Icons.arrow_drop_down_rounded, size: 32),
-      label: const Text('Browse'),
+      label: const Text(
+        'Browse',
+        style: TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     ),
   );
 }
