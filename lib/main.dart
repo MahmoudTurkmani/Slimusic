@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './providers/music_player.dart';
+import './providers/music_library.dart';
 import './screens/main_screen.dart';
 import './screens/player_screen.dart';
 import './screens/drawer_screen.dart';
 import './screens/settings_screen.dart';
-import './providers/music_library.dart';
+import './screens/queue_screen.dart';
 import './models/song.dart';
 
 void main() {
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
           '/': (ctx) => const MainScreen(),
           DrawerScreen.routeName: (ctx) => const DrawerScreen(),
           SettingsScreen.routeName: (ctx) => const SettingsScreen(),
+          QueueScreen.routeName: (ctx) => const QueueScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == PlayerScreen.routeName) {

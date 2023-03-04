@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:slimusic/providers/music_player.dart';
 
 import './song_details.dart';
 import './song_image.dart';
@@ -47,6 +48,13 @@ class SongTile extends StatelessWidget {
               Navigator.of(context).pop();
             },
           );
+        },
+      ),
+      ListTile(
+        title: const Text('Add to queue'),
+        onTap: () {
+          Provider.of<MusicPlayer>(context, listen: false).addToQueue(song);
+          Navigator.of(context).pop();
         },
       ),
     ];

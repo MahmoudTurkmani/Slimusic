@@ -29,7 +29,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
       body: SafeArea(
         child: FutureBuilder(
           future: widget.alreadyPlaying != true
-              ? player.playSong(widget.song)
+              ? player.playSong(song: widget.song, fromQueue: false)
               : null,
           builder: (c, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

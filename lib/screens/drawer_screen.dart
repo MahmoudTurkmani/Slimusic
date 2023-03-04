@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/navbars/navbar_alt.dart';
 import '../screens/settings_screen.dart';
+import '../screens/queue_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   static const String routeName = '/drawer';
@@ -24,7 +25,11 @@ class DrawerScreen extends StatelessWidget {
                 icon: Icons.music_note_rounded,
                 func: () => Navigator.of(context).pushReplacementNamed('/')),
             buttonDivider(context),
-            settingsTile(text: 'Queue', icon: Icons.queue_rounded, func: () {}),
+            settingsTile(
+                text: 'Queue',
+                icon: Icons.queue_rounded,
+                func: () =>
+                    Navigator.of(context).pushNamed(QueueScreen.routeName)),
             buttonDivider(context),
             settingsTile(
                 text: 'Settings',

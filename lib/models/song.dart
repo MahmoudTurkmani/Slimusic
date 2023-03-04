@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 class Song {
+  static const defaultCoverImage = 'assets/images/cover.png';
+
   int id;
   String name;
   String artist;
@@ -44,13 +47,13 @@ class Song {
     return ClipRRect(
       borderRadius: BorderRadius.circular(_borderRadius),
       child: image == null
-          ? Image.asset('assets/images/cover.png')
+          ? Image.asset(defaultCoverImage)
           : Image.file(File.fromUri(image!)),
     );
   }
 
   ImageProvider getImageProvider() {
-    ImageProvider assetImage = const AssetImage('assets/images/cover.png');
+    ImageProvider assetImage = const AssetImage(defaultCoverImage);
     if (image == null) {
       return assetImage;
     }
