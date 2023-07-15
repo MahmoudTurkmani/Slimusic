@@ -28,10 +28,13 @@ class _MainScreenState extends State<MainScreen> {
                 'Please give us permission to your storage so that we can list your songs.\nWe promise not to misuse it :)'),
             ElevatedButton(
               onPressed: () async {
-                await Permission.storage.request();
-                if (await Permission.storage.isGranted) {
+                print(await Permission.manageExternalStorage.request());
+                if (await Permission.manageExternalStorage.isGranted) {
                   await library.initProvider();
                   setState(() {});
+                }
+                else{
+                  openAppSettings();
                 }
               },
               child: const Text('Grant permission'),
@@ -57,7 +60,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder(
-          future: Permission.storage.isGranted,
+          future: Permission.manageExternalStorage.isGranted,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data as bool) {
